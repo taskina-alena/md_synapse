@@ -1,0 +1,46 @@
+fix                    fLANG all langevin 1.0 1.0 1.0 5
+fix                    fNVE all nve
+
+        ##======================================##
+        ## Analysis
+        ##======================================##
+
+thermo                 10000
+thermo_style           custom step temp press etotal epair
+thermo_modify          flush yes
+timestep               0.005
+
+        ##======================================##
+        ## Equilibration before output
+        ##======================================##
+
+
+        ##======================================##
+        ## Run with output
+        ##======================================##
+
+fix enforce_2d all enforce2d
+dump                       1 all custom 10000 Results/Movie_2d_bi_eps6_nv200_sd0.2.xyz id type mol x y z q
+run                    10000000
+Generated 0 of 80200 mixed pair_coeff terms from geometric mixing rule
+Neighbor list info ...
+  update every 1 steps, delay 1 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 16.631963
+  ghost atom cutoff = 16.631963
+  binsize = 8.3159814, bins = 49 49 1
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair cosine/squared, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/2d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 8.867 | 8.867 | 8.867 Mbytes
+   Step          Temp          Press          TotEng         E_pair    
+WARNING: Too many warnings: 60701 vs 100. All future warnings will be suppressed (../thermo.cpp:465)
+         0   1              0.01306875     2.4520505      0            
+     10000   0.9856408      0.0053667019   1.6357542     -0.031702194  
+     20000   0.98140109     0.012444987    1.5472637     -0.13198104   
+     30000   0.98630435     0.0032121144   1.418932      -0.2510669    
+     40000   1.0117437      0.0056205206   1.3508317     -0.42619949   
+     50000   1.0342239      0.00096994099  1.2180044     -0.54397017   
